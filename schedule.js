@@ -1,10 +1,46 @@
-const ScheduledEventEmitter = require('scheduled-event-emitter');
+let EventEmitter = require('events').EventEmitter
+let event = new EventEmitter()
 
-const emitter = new ScheduledEventEmitter();
-emitter.on('giveWarning', (payload) => console.log(payload));
+let timer = {
+    day: 1000 * 60 * 1440,
+    week: 1000 * 60 * 1440 * 7,
+    minute: 1000 * 60,
+    hour: 1000 * 60 * 60,
+    seconds: 1000
+}
 
-const firstDeadline = new Date(new Date().getTime() + 5000);
-emitter.scheduleEmit('giveWarning', firstDeadline, 'First warning, please fix it');
+let timeconstants = {
+    "every minute": timer.minute,
+    "every day": timer.day,
+    "every 5 minutes": timer.minute * 5,
+    "every 10 minutes": timer.minute * 10,
+    "every 15 minutes": timer.minute * 15,
+    "every 30 minutes": timer.minute * 30,
+    "every hour": timer.hour,
+    "every week": timer.week,
+}
 
 
-console.log(emitter.scheduledJobs)
+exports.scheduler = (time, name, handler) => {
+    let currenttime = new Date().getTime()
+    if (timeconstants[time]) {
+        time = currenttime + timeconstants[time]
+    }
+    event.on(name, handler)
+    setInterval(() => {
+        event.emit(name)
+    }, time - currenttime)
+}
+
+exports.scheduleOnce = (time, name, handler) => {
+    let currenttime = new Date().getTime()
+    if (timeconstants[time]) {
+        time = currenttime + timeconstants[time]
+    }
+    event.on(name, handler)
+    setTimeout(() => {
+        event.emit(name)
+    }, time - currenttime)
+}
+
+

@@ -8,12 +8,6 @@ let MetaData = {}
 Object.assign(MetaData, require('./console'))
 
 /*
-    ? The Regular expressions validations
-*/
-
-Object.assign(MetaData, require('./validations'))
-
-/*
     ? State Managment
 */
 
@@ -23,21 +17,31 @@ Object.assign(MetaData, require('./user_state'))
     ? Local Storage
 */
 
-Object.assign(MetaData,require('./localStorage'))
+Object.assign(MetaData, require('./localStorage'))
 
 /*
     ? Crypter for encrypting and decrypting
 */
 
-Object.assign(MetaData,require('./crypter'))
+Object.assign(MetaData, require('./crypter'))
 
 /*
     ? Sqlite3
 */
 
-Object.assign(MetaData,require('./sqlite'))
+Object.assign(MetaData, require('./sqlite'))
 
+/*
+   ? Arrays
+*/
+
+// @ts-ignore
+Object.assign(MetaData, require('./Arrays'))
+
+/*
+   ? BTree
+*/
+
+Object.assign(MetaData, require('./datastructures/BTree.js'))
 
 module.exports = MetaData
-
-

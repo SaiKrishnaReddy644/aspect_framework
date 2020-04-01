@@ -4,7 +4,7 @@ StringManipulation.removeSpaces = (string) => {
     return string.replace(/ /g, '')
 }
 
-StringManipulation.encloseBetweenString=(string,character)=>{
+StringManipulation.encloseString=(string,character)=>{
     return character+string+character
 }
 
